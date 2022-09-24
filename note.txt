@@ -1,0 +1,164 @@
+npm install --save bcryptjs@2.4.3
+npm install --save bcryptjs@5.0.1
+Thư mục Store để lưu trữ với redux
+Object Relational Mapping
+Nếu gặp lỗi cannot set header after they sent to client : Câu lệnh phải trả về return
+
+npm install --save-exact dotenv@10.0.0
+npm install --save-exact express@4.17.1
+npm install --save body-parser@1.19.0 dotenv@8.2.0 ejs@3.1.5 express@4.17.1
+npm install --save-dev @babel/core@7.12.10 @babel/preset-env@7.12.10  @babel/node@7.12.10 nodemon@2.0.7
+npm install --save-exact body-parser@1.19.0 nodemon@2.0.12 @babel/core@7.15.5 @babel/node@7.15.4 @babel/preset-env@7.15.6
+
+npm install --save-dev sequelize-cli@6.2.0
+npm install --save mysql2@2.2.5
+npm install --save sequelize@6.6.2
+npm i @fortawesome/fontawesome-free-webfonts
+
+
+cookie-parser  jsonwebtoken
+Sau khi đăng nhập thành công ta trả về :Mã jwt
+
+//Header bao gồm 2 phần là loại mã là gì,thứ 2 là cách mà nó mã hóa với cách mã hóa là HMAC SHA256 or RSA.
+// {
+//   "alg": "HS256",
+//   "typ": "JWT"
+// }
+
+//Payload là phần thứ 2 bao gồm câu lệnh chứa tải khoản thực thể. Bao gồm 3 phần là registered, public, and private claims.
+// Registered claims: predefined , not mandatory but recommended(Ko bắt buộc nhưng được khuyến nghị) :  iss (issuer), exp (expiration time), 
+sub (subject), aud (audience), and others.
+// Public claims: defined as a URI that contains a collision(tránh va chạm) resistant namespace. 
+// Private claims:
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true
+}
+The payload is then Base64Url encoded to form the second part of the JSON Web Token.
+
+
+Signature : take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that.
+For example if you want to use the HMAC SHA256 algorithm, the signature will be created in the following way:
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret)
+
+
+==///////////////////////////////////////////////////////////Làm việc với mãng
+1 số hàm thường dùng của lodash
+1) _.join() => Convert Array to String ngăn cách các phần tử bởi ký tự bạn truyền vào
+=> (['a', 'b', 'c'], '~')  <=>  'a~b~c'
+
+2) _.last(array) => Lấy phần tử cuối của mãng
+
+3) _.chunk(array, [size= option ])  => Tạo mãng mới từ mãng đã có, các mãng ngăn cách nhau bởi option
+
+_.chunk(['a', 'b', 'c', 'd'], 2); => [['a', 'b'], ['c', 'd']]
+
+_.chunk(['a', 'b', 'c', 'd'], 3); => [[a,b,c] ,[d]]
+
+
+3) _.fill(array, value, [start=0], [end=array.length]) => Ghi đè phần tử vào mảng từ vị trí bắt đầu đến trước vị trí kết thúc
+_.fill([4, 6, 8, 10], '*', 1, 3);
+// => [4, '*', '*', 10]
+
+4)_.findIndex(array, [predicate=_.identity], [fromIndex=0]) => Tìm phần tử trong mãng với điều kiện xác định và trả về vị trí của
+phần tử đó trong mãng
+
+var users = [
+  { 'user': 'barney',  'active': false },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': true }
+];
+_.findIndex(users,function(e) => {return e.user == "barney"}) => Trả về 0
+
+5)_.drop(array, [n=1]) => Tạo một mảng mới cắt đi n phần tử từ mảng đầu vào, tính từ vị trí bắt đầu. 
+
+_.drop([1, 2, 3], 2); => trả về số 3 =>  cắt 2 giá trị từ vị trí bắt đầu
+
+
+==///////////////////////////////////////////////////////////Làm việc với function
+1) _.filter(collection, [predicate=_.identity]) => Lặp qua tất cả phần tử trong mãng và tìm với điều kiện xác định
+var users = [
+  { 'user': 'barney', 'age': 36, 'active': true },
+  { 'user': 'fred',   'age': 40, 'active': false }
+];
+
+_.filter(users,function(e) => {return !e.active;}) => trả về user { 'user': 'fred', 'age': 40, 'active': false }
+
+
+2) _.find(collection, [predicate=_.identity], [fromIndex=0]) => Tương tự _.filter
+ 
+
+3) _.size(array) => Lấy ra số phần tử của mãng 
+
+
+4)_.sortBy(collection, [iteratees=[_.identity]]) => Sắp xếp phần tử theo điều kiênh
+
+var users = [
+  { 'user': 'fred',   'age': 48 },
+  { 'user': 'barney', 'age': 36 },
+  { 'user': 'fred',   'age': 40 },
+  { 'user': 'barney', 'age': 34 }
+];
+
+._soryBy(users,)
+
+
+5) _.includes(collection, value, [fromIndex=0]) => Kiểm tra phần tử có nằm trong mãng không
+
+_.includes([1, 2, 3], 1); => true
+
+
+==///////////////////////////////////////////////////////////Làm việc với Object
+
+
+1) _.has(object, path) => Kiểm tra xem có key, value, hoặc một phần tử có tồn tại trong object hay không. 
+var object = { 'a': { 'b': 2 } };
+var other = _.create({ 'a': _.create({ 'b': 2 }) });
+ 
+_.has(object, 'a');
+// => true
+ 
+_.has(object, 'a.b');
+// => true
+ 
+_.has(object, ['a', 'b']);
+// => true
+ 
+_.has(other, 'a');
+// => false
+
+
+2) _.findKey(object, [predicate=_.identity])
+
+var users = {
+  'barney':  { 'age': 36, 'active': true },
+  'fred':    { 'age': 40, 'active': false },
+  'pebbles': { 'age': 1,  'active': true }
+};
+
+_.findKey(users,function(e) => {return e.age >36;}) => "fred"
+
+
+3) _.pick(object, [paths]) => Tạo 1 mãng từ mãng đã có bằng cách lấy ra phần tử xác định
+
+var object = { 'a': 1, 'b': '2', 'c': 3 };
+_.pick(object, ['a', 'c']);
+// => { 'a': 1, 'c': 3 }
+
+
+
+1 bảng Allcode có thể lưu nhiều User => quan hệ 1 - nhiều => dùng hasMany
+
+1 bảng Allcode có thể lưu nhiều thông tin Doctor_Info
+
+
+1 user - nhiều schedule
+
+
+
+
+Chatbot là 1 server thứ 2
